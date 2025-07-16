@@ -12,7 +12,6 @@ import { useToast } from '@/hooks/use-toast';
 interface PropertySearchData {
   latitude: string;
   longitude: string;
-  address: string;
   square_feet: string;
   year_built: string;
   zoning: string;
@@ -26,7 +25,6 @@ const PropertySearch = () => {
   const [formData, setFormData] = useState<PropertySearchData>({
     latitude: '',
     longitude: '',
-    address: '',
     square_feet: '',
     year_built: '',
     zoning: '',
@@ -123,9 +121,9 @@ const PropertySearch = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-1 gap-8">
             {/* Search Form */}
-            <Card className="glass-card animate-scale-in">
+            <Card className="glass-card animate-scale-in max-w-3xl mx-auto">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Search className="w-5 h-5 text-primary" />
@@ -168,17 +166,6 @@ const PropertySearch = () => {
                         className="mt-1"
                       />
                     </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="address">Address (Optional)</Label>
-                    <Input
-                      id="address"
-                      placeholder="123 Industrial Way, Los Angeles, CA"
-                      value={formData.address}
-                      onChange={(e) => handleInputChange('address', e.target.value)}
-                      className="mt-1"
-                    />
                   </div>
                 </div>
 
@@ -280,39 +267,6 @@ const PropertySearch = () => {
                     </>
                   )}
                 </Button>
-              </CardContent>
-            </Card>
-
-            {/* Map Preview */}
-            <Card className="glass-card animate-scale-in">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  Location Preview
-                </CardTitle>
-                <CardDescription>
-                  Visual preview of your property location
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="aspect-square bg-gradient-to-br from-primary-dark to-secondary-dark rounded-lg flex items-center justify-center border border-white/10">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 text-secondary mx-auto mb-4" />
-                    <p className="text-muted-foreground">
-                      {formData.latitude && formData.longitude ? 
-                        `Location: ${formData.latitude}, ${formData.longitude}` : 
-                        'Enter coordinates to preview location'
-                      }
-                    </p>
-                  </div>
-                </div>
-                
-                {formData.address && (
-                  <div className="mt-4 p-3 bg-white/5 rounded-lg border border-white/10">
-                    <p className="text-sm text-muted-foreground">Address</p>
-                    <p className="text-foreground">{formData.address}</p>
-                  </div>
-                )}
               </CardContent>
             </Card>
           </div>
