@@ -1,73 +1,181 @@
-# Welcome to your Lovable project
+# 🏭 Starboard Industrial Property Comparison Platform
 
-## Project info
+A modern, AI-powered web application for finding comparable industrial properties with intelligent scoring algorithms and comprehensive market analysis.
 
-**URL**: https://lovable.dev/projects/95950a1e-294f-4813-9564-fd4c75a73ec6
+## 🎯 Project Overview
 
-## How can I edit this code?
+Starboard is a React-based frontend application that connects to a sophisticated backend API to help users find comparable industrial properties. The platform uses advanced algorithms to analyze property characteristics and provide detailed compatibility scoring.
 
-There are several ways of editing your application.
+### ✨ Key Features
 
-**Use Lovable**
+- **🔍 Intelligent Property Search**: Input property details (location, size, year built, zoning) to find matches
+- **🤖 AI-Powered Scoring**: Advanced algorithms calculate compatibility scores based on multiple factors
+- **📊 Detailed Score Breakdown**: Expandable views showing location, size, age, and zoning match percentages
+- **🏢 Real Property Data**: Integration with live backend database containing actual property information
+- **🎨 Modern UI/UX**: Beautiful glassmorphism design with smooth animations and transitions
+- **📱 Responsive Design**: Optimized for desktop, tablet, and mobile devices
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/95950a1e-294f-4813-9564-fd4c75a73ec6) and start prompting.
+## 🏗️ Architecture Overview
 
-Changes made via Lovable will be committed automatically to this repo.
+### Frontend Stack
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite for fast development and optimized builds
+- **Styling**: Tailwind CSS with custom design system
+- **UI Components**: Shadcn/UI component library
+- **Icons**: Lucide React
+- **Routing**: React Router DOM
+- **State Management**: React hooks (useState, useEffect)
 
-**Use your preferred IDE**
+## 🔄 Data Flow & API Integration
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 1. Property Search Process
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```mermaid
+graph TD
+    A[User Input Form] --> B[Form Validation]
+    B --> C[API Request to Backend]
+    C --> D[Backend Algorithm Processing]
+    D --> E[Score Calculation]
+    E --> F[JSON Response]
+    F --> G[Frontend Data Processing]
+    G --> H[Results Display]
 ```
 
-**Edit a file directly in GitHub**
+### 2. API Endpoints Used
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+#### **POST /comparable**
+```typescript
+// Request Format
+{
+  latitude: number,      // Property latitude coordinate
+  longitude: number,     // Property longitude coordinate  
+  square_feet: number,   // Building square footage
+  year_built: number,    // Construction year
+  zoning: string         // Zoning classification
+}
 
-**Use GitHub Codespaces**
+// Response Format
+[
+  {
+    id: string,
+    score: number,                    // Overall compatibility score
+    breakdown: {
+      location: number,               // Geographic proximity score
+      size: number,                   // Size similarity score
+      year_built: number,             // Age compatibility score
+      zoning: number                  // Zoning match score
+    },
+    property: {
+      id: string,
+      address: string,                // Property address
+      latitude: number,
+      longitude: number,
+      square_feet: number,
+      year_built: number,
+      zoning: string
+    }
+  }
+]
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### 3. Data Processing Pipeline
 
-## What technologies are used for this project?
+1. **Input Validation**: Frontend validates all required fields before API call
+2. **API Request**: Sends structured JSON payload to backend
+3. **Algorithm Processing**: Backend analyzes property database using AI algorithms
+4. **Score Calculation**: Multi-factor scoring based on:
+   - Geographic proximity (location matching)
+   - Size similarity (square footage comparison)
+   - Age compatibility (construction year analysis)
+   - Zoning classification matching
+5. **Response Handling**: Frontend processes JSON response and formats for display
+6. **Result Visualization**: Properties displayed with detailed score breakdowns
 
-This project is built with:
+## 📁 Project Structure
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```
+src/
+├── pages/                     # Main application pages
+│   ├── Index.tsx             # Landing/home page
+│   ├── PropertySearch.tsx    # Property search form
+│   ├── Results.tsx           # Search results display
+│   └── NotFound.tsx          # 404 error page
+├── components/               # Reusable UI components
+│   └── ui/                   # Shadcn/UI component library
+├── hooks/                    # Custom React hooks
+│   ├── use-toast.ts          # Toast notification system
+│   └── use-mobile.tsx        # Mobile detection hook
+├── lib/                      # Utility functions
+│   └── utils.ts              # Common utility functions
+├── assets/                   # Static assets
+│   └── hero-industrial.jpg   # Hero section background
+├── App.tsx                   # Main application component
+├── main.tsx                  # Application entry point
+└── index.css                 # Global styles and Tailwind
+```
 
-## How can I deploy this project?
+## 🚀 Getting Started
 
-Simply open [Lovable](https://lovable.dev/projects/95950a1e-294f-4813-9564-fd4c75a73ec6) and click on Share -> Publish.
+### Prerequisites
+- Node.js 16+ and npm
+- Modern web browser with ES6+ support
 
-## Can I connect a custom domain to my Lovable project?
+### Installation & Development
 
-Yes, you can!
+```bash
+# Clone the repository
+git clone https://github.com/icyhii/industrial-match-starboard-ui.git
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+# Navigate to project directory
+cd industrial-match-starboard-ui
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Open in browser
+http://localhost:8081
+```
+
+### Build for Production
+
+```bash
+# Create optimized production build
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+## 🔍 API Integration Details
+
+### Request/Response Flow
+
+1. **User submits search form** with property details
+2. **Frontend validates** all required fields (lat/lng, size, year, zoning)
+3. **API request sent** to backend with JSON payload
+4. **Backend processes** request using AI algorithms
+5. **Database queried** for matching properties
+6. **Scoring calculated** based on multiple factors
+7. **Results returned** as JSON array sorted by compatibility score
+8. **Frontend displays** results with interactive score breakdowns
+
+### Error Handling
+
+- **Network Errors**: User-friendly messages for connection issues
+- **Validation Errors**: Real-time form validation feedback
+- **API Errors**: Graceful handling of backend errors
+- **Loading States**: Visual feedback during API calls
+
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🏢 Industrial Property Intelligence
+
+Starboard represents the next generation of commercial real estate technology, combining modern web development with sophisticated property analysis algorithms to deliver actionable insights for industrial property professionals.
+
+---
