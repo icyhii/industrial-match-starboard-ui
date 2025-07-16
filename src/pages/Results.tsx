@@ -173,7 +173,7 @@ const Results = () => {
                       <Building className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-lg">Comparable Property #{index + 1}</h3>
+                      <h3 className="text-lg">{comparable.property.address || `Property ${comparable.property.id}`}</h3>
                       <p className="text-sm text-muted-foreground">Property ID: {comparable.property.id}</p>
                     </div>
                   </CardTitle>
