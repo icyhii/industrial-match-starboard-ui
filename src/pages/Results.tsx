@@ -14,8 +14,7 @@ import {
   ChevronDown, 
   ChevronUp,
   ArrowLeft,
-  BarChart3,
-  Map
+  BarChart3
 } from 'lucide-react';
 
 interface PropertyComparable {
@@ -43,7 +42,6 @@ const Results = () => {
   const [results, setResults] = useState<PropertyComparable[]>([]);
   const [subjectProperty, setSubjectProperty] = useState<any>(null);
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
-  const [sortBy, setSortBy] = useState<'score' | 'distance' | 'size' | 'year'>('score');
 
   useEffect(() => {
     const savedResults = sessionStorage.getItem('searchResults');
@@ -271,16 +269,6 @@ const Results = () => {
                         <Progress value={comparable.breakdown.zoning * 100} className="h-2" />
                       </div>
                     </div>
-
-                    <div className="mt-4 flex gap-2">
-                      <Button variant="outline" size="sm">
-                        <Map className="w-4 h-4 mr-2" />
-                        View on Map
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        View Details
-                      </Button>
-                    </div>
                   </div>
                 )}
               </CardContent>
@@ -289,12 +277,9 @@ const Results = () => {
         </div>
 
         {/* Actions */}
-        <div className="mt-8 flex justify-center gap-4">
+        <div className="mt-8 flex justify-center">
           <Button variant="outline" onClick={() => navigate('/search')}>
             New Search
-          </Button>
-          <Button variant="starboard">
-            Export Results
           </Button>
         </div>
       </div>
