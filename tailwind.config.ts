@@ -88,7 +88,16 @@ export default {
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'floating': 'floating 6s ease-in-out infinite',
+				'fade-in-up': 'fadeInUp 0.6s ease-out',
+				'scale-in': 'scaleIn 0.4s ease-out'
+			},
+			fontFamily: {
+				'sans': ['Inter', 'system-ui', 'sans-serif'],
+			},
+			backdropBlur: {
+				'glass': '12px',
 			}
 		}
 	},

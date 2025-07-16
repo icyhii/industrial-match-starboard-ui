@@ -2,41 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Starboard Design System - Dark theme with glassmorphism effects */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark theme colors for Starboard */
+    --background: 217 32% 6%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 217 32% 12%;
+    --card-foreground: 210 40% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 217 32% 8%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
+    /* Primary: Deep blue / Navy */
+    --primary: 217 91% 60%;
     --primary-foreground: 210 40% 98%;
+    --primary-dark: 217 33% 17%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary: Cyan/Teal */
+    --secondary: 188 95% 68%;
+    --secondary-foreground: 217 32% 6%;
+    --secondary-dark: 188 85% 39%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Accent: Orange/Yellow */
+    --accent: 25 95% 53%;
+    --accent-foreground: 217 32% 6%;
+    --accent-secondary: 48 96% 53%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 217 32% 17%;
+    --muted-foreground: 217 32% 60%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 217 32% 17%;
+    --input: 217 32% 15%;
+    --ring: 217 91% 60%;
 
     --radius: 0.5rem;
+
+    /* Starboard specific design tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(217, 91%, 60%), hsl(217, 33%, 17%));
+    --gradient-secondary: linear-gradient(135deg, hsl(188, 95%, 68%), hsl(188, 85%, 39%));
+    --gradient-accent: linear-gradient(135deg, hsl(25, 95%, 53%), hsl(48, 96%, 53%));
+    --gradient-background: linear-gradient(135deg, hsl(217, 32%, 6%), hsl(217, 33%, 17%));
+    
+    /* Glass morphism effects */
+    --glass-background: hsla(217, 32%, 12%, 0.7);
+    --glass-border: hsla(210, 40%, 98%, 0.1);
+    --glass-backdrop: blur(12px);
+    
+    /* Shadows with brand colors */
+    --shadow-primary: 0 10px 30px -10px hsla(217, 91%, 60%, 0.3);
+    --shadow-glass: 0 8px 32px 0 hsla(217, 32%, 6%, 0.4);
+    --shadow-glow: 0 0 40px hsla(217, 91%, 60%, 0.15);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +125,105 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    background: var(--gradient-background);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Glass morphism utilities */
+  .glass {
+    background: var(--glass-background);
+    backdrop-filter: var(--glass-backdrop);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+  }
+  
+  .glass-card {
+    @apply glass rounded-xl p-6 transition-all duration-300 hover:shadow-2xl;
+  }
+  
+  /* Gradient text utilities */
+  .gradient-text-primary {
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .gradient-text-secondary {
+    background: var(--gradient-secondary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* Floating animation */
+  .floating {
+    animation: floating 6s ease-in-out infinite;
+  }
+  
+  .floating-delayed {
+    animation: floating 6s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  /* Interactive button enhancements */
+  .btn-starboard {
+    @apply relative overflow-hidden transition-all duration-300 transform hover:scale-105;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-primary);
+  }
+  
+  .btn-starboard:hover {
+    box-shadow: var(--shadow-glow), var(--shadow-primary);
+  }
+  
+  .btn-starboard:active {
+    @apply scale-95;
+  }
+}
+
+@layer utilities {
+  /* Custom animations */
+  @keyframes floating {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
   }
 }
